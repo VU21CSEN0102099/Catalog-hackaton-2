@@ -1,0 +1,52 @@
+import java.util.*;
+
+public class StateCapitalQuiz {
+    private static final Map<String, String> statesCapitals = new HashMap<>();
+    private static final Random random = new Random();
+    private static final Scanner scanner = new Scanner(System.in);
+
+    static {
+        statesCapitals.put("Maharashtra", "Mumbai");
+        statesCapitals.put("Tamil Nadu", "Chennai");
+        statesCapitals.put("Karnataka", "Bengaluru");
+        statesCapitals.put("Uttar Pradesh", "Lucknow");
+        statesCapitals.put("Gujarat", "Gandhinagar");
+        statesCapitals.put("Rajasthan", "Jaipur");
+        statesCapitals.put("West Bengal", "Kolkata");
+        statesCapitals.put("Kerala", "Thiruvananthapuram");
+        statesCapitals.put("Bihar", "Patna");
+        statesCapitals.put("Madhya Pradesh", "Bhopal");
+    }
+
+    public static void main(String[] args) {
+        runQuiz(5);
+    }
+
+    public static void runQuiz(int numQuestions) {
+        int score = 0;
+        List<String> states = new ArrayList<>(statesCapitals.keySet());
+
+        System.out.println("Welcome to the State Capitals Quiz!");
+        System.out.println("You will be asked to identify the capitals of " + numQuestions + " randomly selected states.");
+
+        for (int i = 0; i < numQuestions; i++) {
+            int index = random.nextInt(states.size());
+            String state = states.remove(index);
+
+            System.out.println("\nQuestion " + (i + 1) + ": What is the capital of " + state + "?");
+            System.out.print("Your answer: ");
+            String answer = scanner.nextLine().trim().toLowerCase();
+
+            if (answer.equals(statesCapitals.get(state).toLowerCase())) {
+                System.out.println("Correct!");
+                score++;
+            } else {
+                System.out.println("Sorry, that's incorrect. The capital of " + state + " is " + statesCapitals.get(state) + ".");
+            }
+        }
+
+        System.out.println("\nQuiz complete! Your score: " + score + "/" + numQuestions);
+        double percentage = (double) score / numQuestions * 100;
+        System.out.printf("Percentage: %.2f%%\n", percentage);
+    }
+}
